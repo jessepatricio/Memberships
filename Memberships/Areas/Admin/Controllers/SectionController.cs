@@ -16,6 +16,7 @@ namespace Memberships.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: Admin/Section
         public async Task<ActionResult> Index()
         {
