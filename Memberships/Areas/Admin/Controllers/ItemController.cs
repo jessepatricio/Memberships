@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Memberships.Models;
+using Memberships.Models.Core;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using Memberships.Models;
-using Memberships.Models.Core;
 
 namespace Memberships.Areas.Admin.Controllers
 {
@@ -40,7 +36,15 @@ namespace Memberships.Areas.Admin.Controllers
         // GET: Admin/Item/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Item
+            {
+                ItemTypes = db.ItemTypes.ToList(),
+                Parts = db.Parts.ToList(),
+                Sections = db.Sections.ToList()
+
+            };
+
+            return View(model);
         }
 
         // POST: Admin/Item/Create
@@ -72,6 +76,13 @@ namespace Memberships.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            item.ItemTypes = await db.ItemTypes.ToListAsync();
+            item.Parts = await db.Parts.ToListAsync();
+            item.Sections = await db.Sections.ToListAsync();
+
+
             return View(item);
         }
 
